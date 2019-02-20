@@ -15,13 +15,13 @@ app.get('/apps', (req, res) => {
     if(!['Rating', 'App'].includes(sort)){
       res.status(400).send('Sort must be either Rating or App')
     }
-  }
+  } else 
 
   if(genres){
     if(!['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'].includes(genres)){
       res.status(400).send("Genres must be one of 'Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'")
     }
-  }
+  } else {
 
   let results = playstore.filter(app => app.App.toLowerCase());
 
@@ -34,11 +34,8 @@ app.get('/apps', (req, res) => {
   if(genres) {
     results = results.filter(app => app.Genres.toLowerCase().includes(genres.toLowerCase()))
   }
-  console.log(results)
-
   res.send(results)
+  }
 })
 
-app.listen(8000, () => {
-  console.log('Listening on PORT 8000')
-})
+module.exports = app
